@@ -94,7 +94,7 @@ public class Produtos {
         conn.close();
     }
 
-    public void deletarProduto(UUID id) throws SQLException,ClassNotFoundException{
+    public void deletarProdutoPorId(UUID id) throws SQLException,ClassNotFoundException{
         Connection coon = getConexao();
         String SQL = "DELETE FROM PRODUTOS WHERE ID = ?";
         PreparedStatement stmt = coon.prepareStatement(SQL);
