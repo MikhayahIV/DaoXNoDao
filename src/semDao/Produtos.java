@@ -93,4 +93,13 @@ public class Produtos {
         stmt.execute();
         conn.close();
     }
+
+    public void deletarProduto(UUID id) throws SQLException,ClassNotFoundException{
+        Connection coon = getConexao();
+        String SQL = "DELETE FROM PRODUTOS WHERE ID = ?";
+        PreparedStatement stmt = coon.prepareStatement(SQL);
+        stmt.setObject(1,id);
+        stmt.execute();
+        coon.close();
+    }
 }
