@@ -129,4 +129,33 @@ public class Produtos {
         }
         conn.close();
     }
+
+     public Produtos listarProdPorId(UUID id) throws SQLException, ClassNotFoundException{
+        Connection conn = getConexao();
+        String SQL = "SELECT * FROM PRODUTOS WHERE ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(SQL);
+        stmt.setObject(1,id);
+        ResultSet resultSet = stmt.executeQuery();
+        Produtos prod = new Produtos();
+        if(resultSet.next()) {
+            prod.setId(id);
+            prod.setName(resultSet.getString("NAME"));
+            prod.setDescription(resultSet.getString("DESCRIPTION"));
+            prod.setQuantity(resultSet.getInt("QUANTITY"));
+            prod.setPrice(resultSet.getDouble("PRICE"));
+        }
+        conn.close();
+        return prod;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto: " +
+                "\nID: " + id +
+                "\nname: " + name +
+                "\nDESCRIPTION: " + description +
+                "\nQUANTITY: " + quantity +
+                "\nPRICE: " + price
+                ;
+    }
 }
