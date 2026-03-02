@@ -1,7 +1,9 @@
 package semDao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
-import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 public class Produtos {
@@ -72,10 +74,18 @@ public class Produtos {
     }
 
     public static Connection getConexao() throws SQLException, ClassNotFoundException{
-        String DRIVER = "org.postgresql.Driver";
-        String URL = "jdbc:postgresql://localhost:5434/dbForDesignerPatterns";
-        String USERNAME = "JAYSIX";
-        String PASSWROD = "NovaKk666";
+        Properties prop = new Properties();
+        try (FileInputStream fis = new FileInputStream(".env")) {
+            prop.load(fis);
+        } catch (IOException e) {
+            System.err.println("Could not find .env file!");
+            e.printStackTrace();
+        }
+        String DRIVER = prop.getProperty("DB_DRIVER");
+        String URL = prop.getProperty("DB_URL");
+        String USERNAME = prop.getProperty("DB_USER");
+        String PASSWROD = prop.getProperty("DB_PASSWORD");
+
         Class.forName(DRIVER);
         return DriverManager.getConnection(URL,USERNAME,PASSWROD);
     }
