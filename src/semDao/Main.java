@@ -8,7 +8,11 @@ public class Main {
     static void main() {
         try {
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Digite o id do produto: ");
+            Produtos prod = new Produtos();
+            prod.listarTodosProdutos();
+
+
+/*          System.out.print("Digite o id do produto: ");
             String entradaId = scanner.nextLine();
             UUID id = UUID.fromString(entradaId);
             System.out.print("Digite o novo nome do produto: ");
@@ -20,7 +24,7 @@ public class Main {
             System.out.print("Digite o valor do produto: ");
             double price = scanner.nextDouble();
             Produtos prod = new Produtos(name,description,quantity,price);
-            prod.atualizarProdutoPorId(id,prod);
+            prod.atualizarProdutoPorId(id,prod);*/
 
 /*          System.out.print("Digite o id do produto que deseja deletar:  ");
             String entrada = scanner.nextLine();

@@ -1,9 +1,7 @@
 package semDao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 import java.util.UUID;
 
 public class Produtos {
@@ -113,6 +111,22 @@ public class Produtos {
         stmt.setDouble(4,prod.getPrice());
         stmt.setObject(5,id);
         stmt.execute();
+        conn.close();
+    }
+
+    public void listarTodosProdutos() throws SQLException, ClassNotFoundException{
+        Connection conn = getConexao();
+        String SQL = "SELECT * FROM PRODUTOS";
+        PreparedStatement stmt = conn.prepareStatement(SQL);
+       ResultSet resultSet = stmt.executeQuery();
+       while (resultSet.next()){
+           System.out.println("ID: "+resultSet.getObject("ID")
+                   +"\nNAME: "+resultSet.getString("NAME")
+                   +"\nDESCRIPTION: "+resultSet.getString("DESCRIPTION")
+                   + "\nQUANTITY: "+resultSet.getString("QUANTITY")
+                   + "\nPRICE: "+resultSet.getDouble("PRICE")
+                   +"\n"+"-".repeat(25));
+       }
         conn.close();
     }
 }
