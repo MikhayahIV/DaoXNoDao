@@ -118,15 +118,15 @@ public class Produtos {
         Connection conn = getConexao();
         String SQL = "SELECT * FROM PRODUTOS";
         PreparedStatement stmt = conn.prepareStatement(SQL);
-       ResultSet resultSet = stmt.executeQuery();
-       while (resultSet.next()){
-           System.out.println("ID: "+resultSet.getObject("ID")
+        ResultSet resultSet = stmt.executeQuery();
+        while (resultSet.next()){
+            System.out.println("ID: "+resultSet.getObject("ID")
                    +"\nNAME: "+resultSet.getString("NAME")
                    +"\nDESCRIPTION: "+resultSet.getString("DESCRIPTION")
-                   + "\nQUANTITY: "+resultSet.getString("QUANTITY")
+                   + "\nQUANTITY: "+resultSet.getInt("QUANTITY")
                    + "\nPRICE: "+resultSet.getDouble("PRICE")
                    +"\n"+"-".repeat(25));
-       }
+        }
         conn.close();
     }
 }
