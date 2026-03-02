@@ -102,4 +102,17 @@ public class Produtos {
         stmt.execute();
         coon.close();
     }
+
+    public void atualizarProdutoPorId(UUID id, Produtos prod) throws SQLException,ClassNotFoundException{
+        Connection conn = getConexao();
+        String SQL = "UPDATE PRODUTOS SET NAME = ?, DESCRIPTION = ?, QUANTITY = ?, PRICE = ? WHERE ID = ? ";
+        PreparedStatement stmt = conn.prepareStatement(SQL);
+        stmt.setString(1,prod.getName());
+        stmt.setString(2,prod.getDescription());
+        stmt.setInt(3,prod.getQuantity());
+        stmt.setDouble(4,prod.getPrice());
+        stmt.setObject(5,id);
+        stmt.execute();
+        conn.close();
+    }
 }
