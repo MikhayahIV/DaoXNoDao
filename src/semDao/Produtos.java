@@ -3,6 +3,8 @@ package semDao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -124,20 +126,23 @@ public class Produtos {
         conn.close();
     }
 
-    public void listarTodosProdutos() throws SQLException, ClassNotFoundException{
+    public List<Produtos> listarTodosProdutos() throws SQLException, ClassNotFoundException{
         Connection conn = getConexao();
         String SQL = "SELECT * FROM PRODUTOS";
         PreparedStatement stmt = conn.prepareStatement(SQL);
         ResultSet resultSet = stmt.executeQuery();
+        List<Produtos> listapd = new LinkedList();
         while (resultSet.next()){
-            System.out.println("ID: "+resultSet.getObject("ID")
-                   +"\nNAME: "+resultSet.getString("NAME")
-                   +"\nDESCRIPTION: "+resultSet.getString("DESCRIPTION")
-                   + "\nQUANTITY: "+resultSet.getInt("QUANTITY")
-                   + "\nPRICE: "+resultSet.getDouble("PRICE")
-                   +"\n"+"-".repeat(25));
+            Produtos prod = new Produtos();
+            prod.setId((UUID) resultSet.getObject("ID"));
+            prod.setName(resultSet.getString("NAME"));
+            prod.setDescription(resultSet.getString("DESCRIPTION"));
+            prod.setPrice(resultSet.getDouble("QUANTITY"));
+            prod.setQuantity(resultSet.getInt("PRICE"));
+            listapd.add(prod);
         }
         conn.close();
+        return listapd;
     }
 
      public Produtos listarProdPorId(UUID id) throws SQLException, ClassNotFoundException{
@@ -160,12 +165,13 @@ public class Produtos {
 
     @Override
     public String toString() {
-        return "Produto: " +
+        return "\nProduto: " +
                 "\nID: " + id +
                 "\nname: " + name +
                 "\nDESCRIPTION: " + description +
                 "\nQUANTITY: " + quantity +
-                "\nPRICE: " + price
+                "\nPRICE: " + price +
+                "\n"+ "-".repeat(25)
                 ;
     }
 }

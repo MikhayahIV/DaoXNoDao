@@ -9,10 +9,14 @@ public class Main {
         try {
             Scanner scanner = new Scanner(System.in);
             Produtos prod = new Produtos();
+            System.out.println(prod.listarTodosProdutos());
+
+/*
             System.out.print("Digite o id do produto: ");
             String id = scanner.nextLine();
             UUID uid = UUID.fromString(id);
-            System.out.println(prod.listarProdPorId(uid));
+            System.out.println(prod.listarProdPorId(uid));*/
+
 
 
 /*          System.out.print("Digite o id do produto: ");
